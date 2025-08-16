@@ -2,37 +2,51 @@ import React, { useState, useEffect, useRef } from "react";
 import './app.css'
 
 function Stopwatch() {
-    const [start,setStart] = useState(false)
-    const [time, setTime] =useState(0)
+    const [start, setStart] = useState(false)
+    const [time, setTime] = useState(0)
     const intervalId = useRef(null)
     const startTime = useRef(0)
 
-    useEffect(()=>{
-        startTime.current = new Date().getTime()
-        if(start){
-            intervalId.current = setInterval(()=>{
-                setTime((new Date().getTime())-startTime.current)
-            },10)
+    useEffect(() => {
+        if (start) {
+            intervalId.current = setInterval(() => {
+                setTime(Date.now() - startTime.current)
+            }, 10)
         }
-    },[start])
+        return () => {
+            clearInterval(intervalId.current)
+        }
+    }, [start])
 
-    function letStart(){
+    function letStart() {
+        startTime.current = Date.now() - time;
         setStart(true)
     }
-    
-    function letStop(){
-        clearInterval(intervalId.current)
+
+    function letStop() {
         setStart(false)
     }
-    
-    function letReset(){
-        clearInterval(intervalId.current)
+
+    function letReset() {
+        setTime(0)
         setStart(false)
+    }
+
+    function timeFormate() {
+        let min = Math.floor(time / (1000 * 60) % 60)
+        let sec = Math.floor(time / (1000) % 60)
+        let miliSec = Math.floor((time % 1000) / 10)
+
+        min = min < 10 ? "0" + min : min;
+        sec = sec < 10 ? "0" + sec : sec;
+        miliSec = miliSec < 10 ? "0" + miliSec : miliSec;
+
+        return `${min}:${sec}:${miliSec}`
     }
 
     return <>
         <div className="stopwatch">
-            <div className="screen">{`00:00:00`}</div>
+            <div className="screen">{timeFormate()}</div>
             <div className="buttons">
                 <button className="button start-button" onClick={letStart}>Start</button>
                 <button className="button stop-button" onClick={letStop}>Stop</button>
