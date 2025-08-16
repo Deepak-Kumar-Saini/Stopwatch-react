@@ -1,1 +1,1 @@
-# stopwatch-react
+# Stopwatch-react
