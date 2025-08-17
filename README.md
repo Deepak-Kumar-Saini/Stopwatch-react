@@ -31,12 +31,12 @@ npm install
 npm run dev
 ```
 ## How It Works
-**State Management**
-Uses useState to track elapsed time and whether the stopwatch is running.
-**Timing Mechanism**
-Utilizes useEffect and setInterval to increment the timer at consistent intervals. Cleanup occurs to avoid memory leaks.
-**Time Formatting**
-Converts elapsed uptime (in milliseconds) into a readable format like MM:SS:MS.
-**Controls Handling**
+- **State Management**
+Uses useState to track elapsed time and whether the stopwatch is running.  
+- **Timing Mechanism**
+Utilizes useEffect and setInterval to increment the timer at consistent intervals. Cleanup occurs to avoid memory leaks.  
+- **Time Formatting**
+Converts elapsed uptime (in milliseconds) into a readable format like MM:SS:MS.  
+- **Controls Handling**
 Buttons or UI elements invoke functions to start, pause, or reset the stopwatch.
 
